@@ -1,0 +1,6 @@
+{
+  "name": "Milhan & Hussnain - Wedding Invitation",
+  "description": "Interactive Islamic wedding invitation for Milhan Qaiser & Muhammad Hussnain (Mehndi & Barat celebrations, Faisalabad).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
