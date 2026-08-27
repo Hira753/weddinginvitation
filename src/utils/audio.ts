@@ -1,40 +1,48 @@
-// Luxury Romantic Wedding Melody & Audio Engine ("Afreen Afreen & Romantic Shehnai / Flute / Santoor")
+// Luxury Romantic Wedding Melody & Audio Engine using User Provided Video Audio
 
 class WeddingAudioEngine {
   private audioCtx: AudioContext | null = null;
   private isPlaying: boolean = false;
   private isMuted: boolean = false;
-  private volume: number = 0.65;
+  private volume: number = 0.7;
   private timerId: any = null;
   private gainNode: GainNode | null = null;
   private currentNoteIndex: number = 0;
   private htmlAudio: HTMLAudioElement | null = null;
   private listeners: ((playing: boolean) => void)[] = [];
 
-  // Playlist of romantic wedding instrumental audio streams
-  private romanticTracks = [
-    // Soothing Romantic Eastern Wedding Flute & Sitar Melody
-    'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-oriental-relaxing-meditation-112191.mp3',
-    // Heartfelt Romantic Acoustic Strings & Santoor
-    'https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f795cb.mp3?filename=relaxing-indian-music-122849.mp3',
-  ];
-  private currentTrackIndex = 0;
+  // Primary: User provided Islamic / Muslim wedding soundtrack from video
+  private weddingTrackUrl = 'https://res.cloudinary.com/irbsm5bs/video/upload/v1787844833/Muslim_Wedding_Invitation_Website_Comment_Wedding_and_Ill_send_you_the_link_nikahinvita_nddgn9.mp4';
+
+  // Fallback track
+  private fallbackTrackUrl = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-oriental-relaxing-meditation-112191.mp3';
 
   constructor() {
     if (typeof window !== 'undefined') {
       try {
         this.htmlAudio = new Audio();
-        this.htmlAudio.src = this.romanticTracks[this.currentTrackIndex];
+        this.htmlAudio.src = this.weddingTrackUrl;
         this.htmlAudio.loop = true;
         this.htmlAudio.volume = this.volume;
         this.htmlAudio.crossOrigin = 'anonymous';
+        this.htmlAudio.preload = 'auto';
 
-        // Fallback on error to switch or synthesizer
-        this.htmlAudio.addEventListener('error', () => {
-          this.startProceduralMelody();
+        // Error handling fallback
+        this.htmlAudio.addEventListener('error', (e) => {
+          console.warn('Primary audio failed to load, trying fallback', e);
+          if (this.htmlAudio && this.htmlAudio.src !== this.fallbackTrackUrl) {
+            this.htmlAudio.src = this.fallbackTrackUrl;
+            if (this.isPlaying) {
+              this.htmlAudio.play().catch(() => {
+                this.startProceduralMelody();
+              });
+            }
+          } else {
+            this.startProceduralMelody();
+          }
         });
       } catch (e) {
-        console.warn('HTML Audio initialization fallback', e);
+        console.warn('HTML Audio initialization error', e);
       }
     }
   }
@@ -74,9 +82,10 @@ class WeddingAudioEngine {
     if (this.htmlAudio) {
       this.htmlAudio.volume = this.isMuted ? 0 : this.volume;
       this.htmlAudio.play().then(() => {
-        // Successfully playing HTML romantic audio
-      }).catch(() => {
-        // Autoplay policy or media load fallback to Web Audio Synth
+        // Successfully playing requested soundtrack
+      }).catch((err) => {
+        console.warn('Audio play prevented or deferred', err);
+        // If html audio play fails or blocked, fallback to procedural Web Audio
         this.startProceduralMelody();
       });
     } else {
@@ -132,7 +141,7 @@ class WeddingAudioEngine {
     return this.isMuted;
   }
 
-  // Romantic Raag Yaman & Bhairavi Sufi Wedding Progression (Afreen / Din Shagna Da harmonic scale)
+  // Romantic Raag Yaman & Bhairavi Sufi Wedding Progression
   private melodyNotes: Array<{ freq: number; dur: number; type: 'santoor' | 'flute' | 'pad' | 'bell'; chord?: number[] }> = [
     { freq: 293.66, dur: 0.40, type: 'santoor' },
     { freq: 329.63, dur: 0.40, type: 'santoor' },

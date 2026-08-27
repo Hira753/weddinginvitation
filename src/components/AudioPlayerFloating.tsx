@@ -73,11 +73,11 @@ export const AudioPlayerFloating: React.FC = () => {
         >
           <div className="flex flex-col text-left">
             <span className="text-[11px] font-medium tracking-wide text-[#2B231D] flex items-center gap-1">
-              <span>Noor-e-Mohabbat</span>
+              <span>Wedding Music</span>
               <Sparkles className="w-2.5 h-2.5 text-[#B8860B]" />
             </span>
             <span className="text-[9px] text-[#8C6D37] font-sans tracking-wider uppercase">
-              {isPlaying ? 'Sufi Melody Playing' : 'Paused • Tap to Play'}
+              {isPlaying ? 'Playing • Romantic Melody' : 'Paused • Tap to Play'}
             </span>
           </div>
 

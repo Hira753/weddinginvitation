@@ -6,25 +6,17 @@
 import React, { useState } from 'react';
 import { EnvelopeOpener } from './components/EnvelopeOpener';
 import { AudioPlayerFloating } from './components/AudioPlayerFloating';
-import { HeroSection } from './components/HeroSection';
+import { MehndiCard } from './components/MehndiCard';
+import { BaratCard } from './components/BaratCard';
 import { QuranVerseSection } from './components/QuranVerseSection';
 import { ScratchRevealCard } from './components/ScratchRevealCard';
-import { InvitationMessage } from './components/InvitationMessage';
-import { EventsSection } from './components/EventsSection';
 import { CountdownSection } from './components/CountdownSection';
-import { VenueSection } from './components/VenueSection';
-import { HostsSection } from './components/HostsSection';
+import { LookingForwardSection } from './components/LookingForwardSection';
+import { RsvpSection } from './components/RsvpSection';
 import { FooterSection } from './components/FooterSection';
 
 export default function App() {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
-
-  const scrollToEvents = () => {
-    const el = document.getElementById('events-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#2B231D] relative selection:bg-[#D4AF37]/30 selection:text-[#2B231D] font-sans-clean overflow-x-hidden">
@@ -33,7 +25,7 @@ export default function App() {
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(212,175,55,0.12)_0%,transparent_65%)] pointer-events-none z-0" />
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_85%,rgba(184,134,11,0.08)_0%,transparent_60%)] pointer-events-none z-0" />
 
-      {/* Interactive Unfolding Envelope Intro (Full cover with realistic wax seal & tap button) */}
+      {/* Interactive Unfolding Envelope Intro (Video-Style Animation) */}
       <EnvelopeOpener
         isOpen={isEnvelopeOpen}
         onOpen={() => setIsEnvelopeOpen(true)}
@@ -42,33 +34,30 @@ export default function App() {
       {/* Floating Audio Controller */}
       <AudioPlayerFloating />
 
-      {/* Main Wedding Invitation Card Flow */}
-      <main className="relative z-10 w-full flex flex-col items-center">
-        {/* 1. Hero Card with Bismillah & Couple Name */}
-        <HeroSection onEventsClick={scrollToEvents} />
+      {/* Main Wedding Invitation Card Flow in Strict Requested Sequence */}
+      <main className="relative z-10 w-full flex flex-col items-center pt-4 pb-12">
+        {/* 1. Mehndi Card (PDF Page 2) */}
+        <MehndiCard />
 
-        {/* 2. Quranic Verse (Surah Ar-Rum 30:21) */}
+        {/* 2. Barat Card (PDF Page 3) */}
+        <BaratCard />
+
+        {/* 3. Ayat (Surah Ar-Rum 30:21) */}
         <QuranVerseSection />
 
-        {/* 3. Interactive Scratch & Reveal Surprise Date */}
+        {/* 4. Scratch & Reveal Surprise Date */}
         <ScratchRevealCard />
 
-        {/* 4. Welcome Message & Family Invitation */}
-        <InvitationMessage />
-
-        {/* 5. Wedding Events Schedule (Mayun, Mehendi, Nikah, Walima) */}
-        <EventsSection />
-
-        {/* 6. Live Countdown Timer */}
+        {/* 5. Live Countdown Timer */}
         <CountdownSection />
 
-        {/* 7. The Venue & Interactive Maps / QR code */}
-        <VenueSection />
+        {/* 6. Looking Forward Family Members */}
+        <LookingForwardSection />
 
-        {/* 8. Hosts & Contact Information */}
-        <HostsSection />
+        {/* 7. RSVP Contacts (Call only, no WhatsApp) */}
+        <RsvpSection />
 
-        {/* 9. Grand Royal Footer */}
+        {/* 8. Grand Royal Mosque / Dome Footer */}
         <FooterSection />
       </main>
     </div>
