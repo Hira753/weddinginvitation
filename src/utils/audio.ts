@@ -12,7 +12,7 @@ class WeddingAudioEngine {
   private listeners: ((playing: boolean) => void)[] = [];
 
   // Primary: User provided Islamic / Muslim wedding soundtrack from video
-  private weddingTrackUrl = 'https://res.cloudinary.com/irbsm5bs/video/upload/v1787844833/Muslim_Wedding_Invitation_Website_Comment_Wedding_and_Ill_send_you_the_link_nikahinvita_nddgn9.mp4';
+  private weddingTrackUrl = 'https://res.cloudinary.com/irbsm5bs/video/upload/v1787845694/WhatsApp_Video_2026-08-27_at_8.45.44_PM_wmjyjm.mp4';
 
   // Fallback track
   private fallbackTrackUrl = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-oriental-relaxing-meditation-112191.mp3';

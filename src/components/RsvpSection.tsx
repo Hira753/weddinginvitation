@@ -8,20 +8,40 @@ export const rsvpContacts = [
   { phone: '+923007931642', display: '+92 300 7931642' },
 ];
 
+const headerVariant = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (custom: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay: custom * 0.1,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
 export const RsvpSection: React.FC = () => {
   return (
     <section className="relative w-full max-w-xl mx-auto px-4 py-4">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#D4AF37]/40 shadow-[0_10px_30px_rgba(140,110,70,0.08)] text-center relative overflow-hidden"
       >
         {/* Subtle Decorative Border */}
         <div className="absolute inset-3 rounded-2xl border border-[#D4AF37]/20 pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col items-center mb-5">
+        <motion.div
+          custom={1}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={headerVariant}
+          className="relative z-10 flex flex-col items-center mb-5"
+        >
           <span className="text-[10px] sm:text-xs font-display-luxury tracking-[0.25em] text-[#8C6D37] uppercase font-semibold">
             FOR INQUIRIES & ASSISTANCE
           </span>
@@ -34,16 +54,16 @@ export const RsvpSection: React.FC = () => {
             <Sparkles className="w-3 h-3 fill-current" />
             <span className="h-[1px] w-8 bg-[#D4AF37]" />
           </div>
-        </div>
+        </motion.div>
 
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-lg mx-auto">
           {rsvpContacts.map((contact, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ delay: 0.15 + idx * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="p-4 rounded-2xl bg-[#FAF5EE] border border-[#D4AF37]/40 flex flex-col items-center justify-between gap-3 shadow-xs hover:border-[#B8860B] transition-all"
             >
               <span className="text-xs sm:text-sm font-mono font-bold text-[#2B231D] tracking-wide">

@@ -12,20 +12,40 @@ export const lookingForwardList = [
   'M. Zaid',
 ];
 
+const headerVariant = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (custom: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay: custom * 0.1,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
 export const LookingForwardSection: React.FC = () => {
   return (
     <section className="relative w-full max-w-xl mx-auto px-4 py-4">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#D4AF37]/40 shadow-[0_10px_30px_rgba(140,110,70,0.08)] text-center relative overflow-hidden"
       >
         {/* Subtle Decorative Border */}
         <div className="absolute inset-3 rounded-2xl border border-[#D4AF37]/20 pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col items-center mb-5">
+        <motion.div
+          custom={1}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={headerVariant}
+          className="relative z-10 flex flex-col items-center mb-5"
+        >
           <span className="text-[10px] sm:text-xs font-display-luxury tracking-[0.25em] text-[#8C6D37] uppercase font-semibold">
             WITH BEST COMPLIMENTS
           </span>
@@ -38,16 +58,16 @@ export const LookingForwardSection: React.FC = () => {
             <Sparkles className="w-3 h-3 fill-current" />
             <span className="h-[1px] w-8 bg-[#D4AF37]" />
           </div>
-        </div>
+        </motion.div>
 
         <div className="relative z-10 flex flex-wrap items-center justify-center gap-2.5 max-w-md mx-auto">
           {lookingForwardList.map((name, idx) => (
             <motion.span
               key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05, duration: 0.4 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ delay: 0.15 + idx * 0.06, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="px-4 py-2 rounded-full bg-[#FAF5EE] border border-[#D4AF37]/45 text-xs sm:text-sm font-serif font-medium text-[#2B231D] shadow-xs hover:border-[#B8860B] transition-all"
             >
               {name}

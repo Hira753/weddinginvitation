@@ -3,6 +3,19 @@ import { motion } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { Sparkles, Wand2, Check } from 'lucide-react';
 
+const itemVariant = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (custom: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay: custom * 0.1,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
 export const ScratchRevealCard: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -170,14 +183,21 @@ export const ScratchRevealCard: React.FC = () => {
     <section className="relative w-full max-w-xl mx-auto px-4 py-6">
       {/* Light Luxury Card Container */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="relative rounded-3xl bg-[#FFFFFF] border border-[#D4AF37]/40 shadow-[0_12px_35px_rgba(140,110,70,0.08)] p-6 sm:p-8 text-center overflow-hidden"
       >
         {/* Section Tag */}
-        <div className="relative z-10 flex flex-col items-center mb-5">
+        <motion.div
+          custom={1}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={itemVariant}
+          className="relative z-10 flex flex-col items-center mb-5"
+        >
           <span className="text-[10px] sm:text-xs font-display-luxury tracking-[0.25em] text-[#8C6D37] uppercase font-semibold mb-1">
             A SPECIAL SURPRISE
           </span>
@@ -185,10 +205,15 @@ export const ScratchRevealCard: React.FC = () => {
             <span>Scratch & Reveal Date</span>
             <Sparkles className="w-4 h-4 text-[#B8860B]" />
           </h3>
-        </div>
+        </motion.div>
 
         {/* Scratch Card Outer Wrapper */}
-        <div
+        <motion.div
+          custom={2}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={itemVariant}
           ref={containerRef}
           className="relative mx-auto w-full max-w-[380px] h-[210px] rounded-2xl p-1 bg-gradient-to-r from-[#D4AF37] via-[#FFF3B0] to-[#B8860B] shadow-lg overflow-hidden select-none"
         >
@@ -244,10 +269,17 @@ export const ScratchRevealCard: React.FC = () => {
               <span>Revealed!</span>
             </motion.div>
           )}
-        </div>
+        </motion.div>
 
         {/* Hint and Quick Reveal Button */}
-        <div className="relative z-10 mt-5 flex flex-col items-center gap-2">
+        <motion.div
+          custom={3}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={itemVariant}
+          className="relative z-10 mt-5 flex flex-col items-center gap-2"
+        >
           <p className="text-xs text-[#6B5A46] font-serif tracking-wider">
             {isScratched
               ? '✨ Date unlocked! Save the date for Milhan & Hussnain.'
@@ -264,7 +296,7 @@ export const ScratchRevealCard: React.FC = () => {
               <span>Reveal Instantly</span>
             </button>
           )}
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
