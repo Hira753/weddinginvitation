@@ -108,7 +108,7 @@ export const FooterSection: React.FC = () => {
         variants={itemVariant}
         className="text-[10px] sm:text-[11px] font-display-luxury tracking-[0.25em] text-[#8C6D37] uppercase font-semibold"
       >
-        OCTOBER 23 & 24, 2026 • FAISALABAD, PAKISTAN
+        OCTOBER 24 & 25, 2026 • FAISALABAD, PAKISTAN
       </motion.p>
     </footer>
   );

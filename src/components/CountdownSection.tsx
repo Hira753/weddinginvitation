@@ -23,8 +23,8 @@ const itemVariant = {
 };
 
 export const CountdownSection: React.FC = () => {
-  // Target Wedding Date: October 24, 2026 13:00:00 (PKT / GMT+5)
-  const targetDate = new Date('2026-10-24T13:00:00+05:00').getTime();
+  // Target Wedding Date: October 25, 2026 13:00:00 (PKT / GMT+5)
+  const targetDate = new Date('2026-10-25T13:00:00+05:00').getTime();
 
   const calculateTimeLeft = (): TimeRemaining => {
     const now = new Date().getTime();
@@ -82,7 +82,7 @@ export const CountdownSection: React.FC = () => {
             Until the Big Day
           </h3>
           <p className="text-xs font-serif italic text-[#6B5A46] mt-1">
-            Saturday, 24 October 2026 • 1:00 PM
+            Sunday, 25 October 2026 • 1:00 PM
           </p>
         </motion.div>
 

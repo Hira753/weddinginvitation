@@ -227,11 +227,11 @@ export const ScratchRevealCard: React.FC = () => {
             </p>
             
             <h4 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#2B231D] my-1 tracking-wide">
-              Saturday
+              Sunday
             </h4>
             
             <p className="text-sm font-sans font-semibold text-[#B8860B] tracking-wider mb-1.5">
-              October 24, 2026 • 1:00 PM
+              October 25, 2026 • 1:00 PM
             </p>
             
             <p className="font-script-luxury text-xl text-[#6B5A46] leading-none mb-2">

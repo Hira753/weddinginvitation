@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { Sparkles, ChevronDown } from 'lucide-react';
 import { weddingAudio } from '../utils/audio';
 
 interface EnvelopeOpenerProps {
@@ -11,30 +11,38 @@ interface EnvelopeOpenerProps {
 
 export const EnvelopeOpener: React.FC<EnvelopeOpenerProps> = ({ onOpen, isOpen }) => {
   const [isOpening, setIsOpening] = useState(false);
+  const [isFlapOpen, setIsFlapOpen] = useState(false);
+  const [isCardSliding, setIsCardSliding] = useState(false);
 
   const handleOpenEnvelope = () => {
     if (isOpening || isOpen) return;
     setIsOpening(true);
 
-    // Trigger golden sparkles confetti burst
-    try {
-      confetti({
-        particleCount: 75,
-        spread: 80,
-        origin: { y: 0.5 },
-        colors: ['#D4AF37', '#F5D77F', '#C5A059', '#FAF6F0', '#B8860B', '#E5C158'],
-      });
-    } catch (e) {
-      console.warn('Confetti effect', e);
-    }
-
-    // Play wedding audio instantly
+    // Play wedding soundtrack instantly
     weddingAudio.startAudio();
 
-    // Smooth unfolding transition before dismissing envelope overlay
+    // Step 1: Flap unfolds smoothly upwards (starts immediately)
+    setIsFlapOpen(true);
+
+    // Step 2: Card smoothly rises up out of envelope pocket
+    setTimeout(() => {
+      setIsCardSliding(true);
+      try {
+        confetti({
+          particleCount: 50,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#D4AF37', '#F5D77F', '#C5A059', '#FAF6F0', '#B8860B'],
+        });
+      } catch (e) {
+        console.warn('Confetti effect', e);
+      }
+    }, 450);
+
+    // Step 3: Complete transition smoothly into main screen
     setTimeout(() => {
       onOpen();
-    }, 1400);
+    }, 1850);
   };
 
   if (isOpen) return null;
@@ -43,153 +51,203 @@ export const EnvelopeOpener: React.FC<EnvelopeOpenerProps> = ({ onOpen, isOpen }
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.9, ease: 'easeInOut' } }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-[#ECE5DA] overflow-hidden select-none p-3"
+        exit={{
+          opacity: 0,
+          y: -60,
+          transition: { duration: 0.8, ease: [0.32, 0.72, 0, 1] },
+        }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-[#ECE4D8] overflow-hidden select-none p-3"
       >
-        {/* Ambient Romantic Background Glow & Pattern */}
-        <div className="absolute inset-0 bg-[#E8E1D5] pointer-events-none" />
-        <div className="absolute inset-0 opacity-25 laser-cut-pattern pointer-events-none" />
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.22)_0%,transparent_70%)] blur-2xl pointer-events-none" />
+        {/* Soft Ambient Background Glow */}
+        <div className="absolute inset-0 bg-[#EFE9DF] pointer-events-none" />
+        <div className="absolute inset-0 opacity-20 laser-cut-pattern pointer-events-none" />
+        <div className="absolute w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
-        {/* Envelope Container (Matching the Video Recording Flow) */}
-        <motion.div
-          initial={{ y: 25, opacity: 0, scale: 0.94 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="relative w-full max-w-[400px] h-[90vh] max-h-[740px] rounded-[2.5rem] bg-[#F7F2EA] shadow-[0_25px_65px_rgba(70,55,35,0.28)] flex flex-col items-center justify-between cursor-pointer overflow-hidden border border-[#D8C7B0]"
-          onClick={handleOpenEnvelope}
+        {/* Envelope Stage with 3D Perspective */}
+        <div
+          className="relative w-full max-w-[390px] h-[85vh] max-h-[680px] flex items-center justify-center"
+          style={{ perspective: '1200px' }}
         >
-          {/* Subtle Paper Grain Overlay */}
-          <div className="absolute inset-0 paper-grain opacity-45 pointer-events-none z-0" />
-
-          {/* Envelope Diagonal Fold Lines */}
-          <div className="absolute inset-0 pointer-events-none z-10">
-            <div className="absolute top-0 left-0 w-1/2 h-[45%] border-b border-[#D4C3AC] opacity-55 [transform-origin:top_left] rotate-[22deg]" />
-            <div className="absolute top-0 right-0 w-1/2 h-[45%] border-b border-[#D4C3AC] opacity-55 [transform-origin:top_right] -rotate-[22deg]" />
-          </div>
-
-          {/* Invitation Card Inside (Hidden initially, rises up smoothly upon tap) */}
+          {/* Main Envelope Body */}
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={
-              isOpening
-                ? { y: -190, opacity: 1, scale: 1.02 }
-                : { opacity: 0, y: 50, scale: 0.95, pointerEvents: 'none' }
-            }
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className={`absolute inset-x-5 top-8 bottom-32 bg-[#FFFFFF] rounded-t-[2rem] border-2 border-[#D4AF37]/50 shadow-2xl flex flex-col items-center justify-start pt-8 px-6 text-center z-5 ${
-              !isOpening ? 'invisible' : 'visible'
-            }`}
+            initial={{ y: 20, opacity: 0, scale: 0.96 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            onClick={handleOpenEnvelope}
+            className="relative w-full h-full rounded-[2rem] bg-[#F7F2EA] shadow-[0_25px_60px_rgba(70,55,35,0.22)] border border-[#E2D5C3] overflow-hidden cursor-pointer flex flex-col justify-between"
           >
-            {/* Inner Card Floral Arch Top */}
-            <span className="text-[10px] font-display-luxury tracking-[0.3em] text-[#8C6D37] uppercase mb-1 font-semibold">
-              WEDDING INVITATION
-            </span>
-            <p className="font-arabic text-2xl text-[#2B231D] mt-1 mb-1">
-              بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-            </p>
-            <div className="w-10 h-[1px] bg-[#D4AF37] my-2" />
-            <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
-              Milhan Qaiser
-            </h2>
-            <span className="font-script-luxury text-2xl text-[#B8860B] my-0.5">&</span>
-            <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
-              Muhammad Hussnain
-            </h2>
-            <div className="mt-4 flex items-center gap-1.5 text-[10px] font-display-luxury tracking-widest text-[#6E5D4F] uppercase font-semibold">
-              <Sparkles className="w-3 h-3 text-[#B8860B]" />
-              <span>OCTOBER 2026 • FAISALABAD</span>
-              <Sparkles className="w-3 h-3 text-[#B8860B]" />
-            </div>
+            {/* Paper Texture Overlay */}
+            <div className="absolute inset-0 paper-grain opacity-40 pointer-events-none z-0" />
 
-            {/* Scroll Down Prompt inside the card */}
+            {/* Envelope Back Wall Layer */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#EDE4D5] to-[#E5DAC8] z-0" />
+
+            {/* Inner Invitation Card (Glides upwards smoothly like in video) */}
             <motion.div
-              animate={{ y: [0, 5, 0], opacity: [0.6, 1, 0.6] }}
-              transition={{ repeat: Infinity, duration: 1.8 }}
-              className="mt-6 flex flex-col items-center gap-1 text-[#8C6D37]"
+              initial={{ y: 80, opacity: 0 }}
+              animate={
+                isCardSliding
+                  ? {
+                      y: -240,
+                      opacity: 1,
+                      scale: 1.03,
+                    }
+                  : isOpening
+                  ? { y: 20, opacity: 0.9 }
+                  : { y: 80, opacity: 0 }
+              }
+              transition={{
+                duration: 1.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute inset-x-4 top-8 bottom-28 bg-[#FFFFFF] rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_15px_40px_rgba(0,0,0,0.15)] flex flex-col items-center justify-start pt-8 px-6 text-center z-10 pointer-events-none"
             >
-              <span className="text-[10px] font-serif italic tracking-wider">Scroll down</span>
-              <ChevronDown className="w-4 h-4 text-[#B8860B]" />
-            </motion.div>
-          </motion.div>
+              {/* Gold double frame on inner card */}
+              <div className="absolute inset-2.5 rounded-xl border border-[#D4AF37]/30 pointer-events-none" />
 
-          {/* Animated Top Triangular Flap (3D Unfolding) */}
-          <motion.div
-            animate={isOpening ? { rotateX: 180, zIndex: 10 } : { rotateX: 0 }}
-            style={{ transformOrigin: 'top' }}
-            transition={{ duration: 0.85, ease: 'easeInOut' }}
-            className="absolute inset-x-0 top-0 h-[48%] z-20 pointer-events-none"
-          >
-            <div className="w-full h-full bg-gradient-to-b from-[#F3ECE0] to-[#E9DFCE] shadow-[0_12px_28px_rgba(80,60,35,0.15)] relative flex items-center justify-center [clip-path:polygon(0_0,100%_0,50%_100%)] border-b border-[#D4C4AE]">
-              <div className="absolute inset-0 paper-grain opacity-50" />
-              <div className="absolute bottom-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#C5A059]/50 to-transparent" />
-            </div>
-          </motion.div>
+              <span className="text-[10px] font-display-luxury tracking-[0.3em] text-[#8C6D37] uppercase font-semibold">
+                WEDDING INVITATION
+              </span>
 
-          {/* Central Wax Seal Button with Glow & Pulse */}
-          <div className="relative z-30 flex flex-col items-center my-auto pt-24 pb-8">
-            <motion.div
-              animate={isOpening ? { scale: 0, opacity: 0 } : { scale: [1, 1.05, 1] }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-              className="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full p-1 flex items-center justify-center cursor-pointer shadow-[0_15px_32px_rgba(140,100,25,0.45),0_3px_8px_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 transition-all"
-            >
-              {/* Outer Golden Glow Pulse */}
-              <div className="absolute -inset-2 rounded-full bg-[#D4AF37]/20 animate-ping pointer-events-none" />
+              <p className="font-arabic text-2xl text-[#2B231D] mt-2 mb-1">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+              </p>
 
-              {/* Melted organic wax rim effect */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#F5D884] via-[#C99727] to-[#7D5A0A] shadow-inner" />
-              <div className="absolute inset-1 rounded-full border border-[#FFF0B8]/70 bg-gradient-to-br from-[#E2B755] via-[#B8860B] to-[#6A4700]" />
+              <div className="w-8 h-[1px] bg-[#D4AF37] my-2" />
 
-              {/* Inner Seal Stamped Coin */}
-              <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#C99727] via-[#B8860B] to-[#8C6207] flex flex-col items-center justify-center text-center border border-[#FFE79E]/80 shadow-inner p-1">
-                <span className="font-arabic text-lg text-[#FFEBB0] leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                  بَارَكَ اللَّهُ
-                </span>
-                <span className="font-display-luxury text-[10px] font-bold text-[#FFE699] tracking-wider mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                  M & H
-                </span>
+              <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
+                Milhan Qaiser
+              </h2>
+              <span className="font-script-luxury text-2xl text-[#B8860B] -my-1">&</span>
+              <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
+                Muhammad Hussnain
+              </h2>
+
+              <div className="mt-4 flex items-center gap-1.5 text-[9px] font-display-luxury tracking-widest text-[#8C6D37] uppercase font-semibold">
+                <Sparkles className="w-3 h-3 text-[#B8860B]" />
+                <span>OCTOBER 24 & 25, 2026</span>
+                <Sparkles className="w-3 h-3 text-[#B8860B]" />
               </div>
             </motion.div>
 
-            {/* Tap to Open Prompt */}
-            <motion.div
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-              className="mt-3.5 flex flex-col items-center text-center"
-            >
-              <span className="text-xs font-display-luxury font-bold tracking-[0.3em] text-[#8C6D37] uppercase drop-shadow-xs">
-                TAP TO OPEN
-              </span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#B8860B] -mt-0.5 animate-bounce" />
-            </motion.div>
-          </div>
-
-          {/* Bottom Scalloped Border in Light Ivory & Gold */}
-          <div className="relative z-20 w-full mt-auto">
-            <div className="relative w-full h-24 bg-[#FAF5EE] flex items-end justify-center overflow-hidden border-t border-[#D4AF37]/30">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.12)_0%,transparent_75%)] pointer-events-none" />
-
-              {/* Scalloped Arch Overlay Cutout */}
-              <div className="absolute inset-0 flex items-start justify-center pointer-events-none">
+            {/* Front Pocket of Envelope (Triangular lower cuts) */}
+            <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#F5EFE5] via-[#EFE7D9] to-[#E9DFCF] shadow-[0_-8px_20px_rgba(70,55,35,0.06)] z-20 pointer-events-none border-t border-[#DECDB8]/60">
+              {/* Left & Right diagonal envelope fold lines */}
+              <div className="absolute inset-0">
                 <svg
-                  viewBox="0 0 400 120"
-                  className="w-full h-full text-[#F6F0E5] fill-current drop-shadow-[0_2px_6px_rgba(140,110,70,0.1)]"
+                  viewBox="0 0 400 350"
+                  className="w-full h-full text-[#E8DDCB]/60 fill-none stroke-current"
                   preserveAspectRatio="none"
                 >
-                  <path d="M 0,0 L 400,0 L 400,40 Q 370,40 350,25 Q 320,5 290,25 Q 260,45 230,25 Q 200,5 170,25 Q 140,45 110,25 Q 80,5 50,25 Q 30,40 0,40 Z" />
+                  <line x1="0" y1="350" x2="200" y2="130" strokeWidth="1.5" strokeDasharray="3,3" />
+                  <line x1="400" y1="350" x2="200" y2="130" strokeWidth="1.5" strokeDasharray="3,3" />
                 </svg>
               </div>
 
-              <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-80" />
-
-              <div className="relative z-10 pb-3 text-center">
-                <p className="text-[11px] font-display-luxury font-bold tracking-[0.25em] text-[#8C6D37] uppercase">
+              {/* Bottom Monogram text */}
+              <div className="absolute bottom-4 inset-x-0 text-center">
+                <span className="text-[10px] font-display-luxury tracking-[0.25em] text-[#8C6D37]/70 uppercase font-semibold">
                   MILHAN & HUSSNAIN • 2026
-                </p>
+                </span>
               </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Animated 3D Top Triangular Flap */}
+            <motion.div
+              initial={false}
+              animate={
+                isFlapOpen
+                  ? {
+                      rotateX: 180,
+                      zIndex: 5,
+                      transition: { duration: 0.85, ease: [0.4, 0, 0.2, 1] },
+                    }
+                  : {
+                      rotateX: 0,
+                      zIndex: 30,
+                    }
+              }
+              style={{
+                transformOrigin: 'top center',
+                transformStyle: 'preserve-3d',
+              }}
+              className="absolute inset-x-0 top-0 h-[48%] pointer-events-none"
+            >
+              {/* Top Flap Front Face */}
+              <div
+                className="w-full h-full bg-gradient-to-b from-[#F2ECE0] to-[#E4D7C2] shadow-[0_12px_24px_rgba(60,45,25,0.18)] relative flex items-center justify-center border-b border-[#D8C7B0]"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+                  backfaceVisibility: 'hidden',
+                }}
+              >
+                <div className="absolute inset-0 paper-grain opacity-40" />
+                <div className="absolute bottom-0 inset-x-0 h-[1px] bg-[#D4AF37]/50" />
+              </div>
+
+              {/* Top Flap Back Face (When rotated 180 deg) */}
+              <div
+                className="absolute inset-0 w-full h-full bg-gradient-to-t from-[#E6D9C5] to-[#D9C9B1]"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+                  transform: 'rotateX(180deg)',
+                  backfaceVisibility: 'hidden',
+                }}
+              />
+            </motion.div>
+
+            {/* 3D Wax Seal Button in Center */}
+            <div className="relative z-40 flex flex-col items-center justify-center my-auto pt-24 pb-8">
+              <motion.div
+                animate={
+                  isOpening
+                    ? {
+                        scale: 0.7,
+                        opacity: 0,
+                        transition: { duration: 0.4, ease: 'easeOut' },
+                      }
+                    : {
+                        scale: [1, 1.04, 1],
+                        transition: { repeat: Infinity, duration: 2.8, ease: 'easeInOut' },
+                      }
+                }
+                className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full flex items-center justify-center cursor-pointer shadow-[0_14px_30px_rgba(130,90,20,0.42)] hover:scale-105 active:scale-95 transition-transform"
+              >
+                {/* Glow ring */}
+                <div className="absolute -inset-2 rounded-full bg-[#D4AF37]/25 animate-ping pointer-events-none" />
+
+                {/* Wax Rim Texture */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#F5D884] via-[#C99727] to-[#7D5A0A] shadow-inner" />
+                <div className="absolute inset-1 rounded-full border border-[#FFF0B8]/80 bg-gradient-to-br from-[#E2B755] via-[#B8860B] to-[#6A4700]" />
+
+                {/* Inner Wax Seal Monogram */}
+                <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#C99727] via-[#B8860B] to-[#8C6207] flex flex-col items-center justify-center text-center p-1">
+                  <span className="font-arabic text-base sm:text-lg text-[#FFEBB0] leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                    بَارَكَ اللَّهُ
+                  </span>
+                  <span className="font-display-luxury text-[9px] font-bold text-[#FFE699] tracking-wider mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                    M & H
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Tap to open label */}
+              <motion.div
+                animate={
+                  isOpening
+                    ? { opacity: 0, y: 10 }
+                    : { opacity: [0.7, 1, 0.7], transition: { repeat: Infinity, duration: 2 } }
+                }
+                className="mt-3.5 flex flex-col items-center text-center"
+              >
+                <span className="text-[11px] font-display-luxury font-bold tracking-[0.3em] text-[#8C6D37] uppercase drop-shadow-xs">
+                  TAP TO OPEN
+                </span>
+                <ChevronDown className="w-3.5 h-3.5 text-[#B8860B] -mt-0.5 animate-bounce" />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
