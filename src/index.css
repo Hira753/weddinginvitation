@@ -5,6 +5,8 @@
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-display: 'Cinzel', serif;
     --font-script: 'Great Vibes', cursive;
+    --font-formal-script: 'Pinyon Script', 'Petit Formal Script', cursive;
+    --font-formal-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
     --font-arabic: 'Amiri', 'Traditional Arabic', serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
   }
@@ -20,6 +22,18 @@
 
 .font-script-luxury {
   font-family: 'Great Vibes', cursive;
+}
+
+.font-formal-script {
+  font-family: 'Pinyon Script', 'Petit Formal Script', cursive;
+}
+
+.font-petit-formal {
+  font-family: 'Petit Formal Script', 'Pinyon Script', cursive;
+}
+
+.font-formal-serif {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
 }
 
 .font-arabic {

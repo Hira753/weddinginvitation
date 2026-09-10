@@ -74,10 +74,10 @@ export const MehndiCard: React.FC = () => {
           variants={itemVariant}
           className="relative z-10 my-4 flex flex-col items-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-script-luxury font-normal text-[#8C6D37] leading-tight drop-shadow-xs">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-[1.1] tracking-wide drop-shadow-xs">
             Mehndi
           </h1>
-          <h1 className="text-4xl sm:text-5xl font-script-luxury font-normal text-[#8C6D37] leading-tight -mt-2">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-[1.1] tracking-wide -mt-1 sm:-mt-2">
             Ceremony
           </h1>
         </motion.div>
@@ -104,12 +104,12 @@ export const MehndiCard: React.FC = () => {
             className="flex items-center justify-center gap-4 sm:gap-6 py-2 px-5 rounded-2xl bg-[#FAF5EE] border border-[#D4AF37]/35 max-w-sm w-full shadow-xs"
           >
             <span className="font-display-luxury font-bold text-xs sm:text-sm text-[#2B231D] tracking-wider uppercase">
-              Saturday
+              FRIDAY
             </span>
             <div className="h-8 w-[1.5px] bg-[#D4AF37]" />
             <div className="text-center">
               <span className="font-serif-luxury font-bold text-2xl text-[#8C6D37] leading-none block">
-                24
+                23
               </span>
               <span className="text-[10px] font-sans font-semibold text-[#8C6D37]">
                 2026

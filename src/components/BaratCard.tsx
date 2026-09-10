@@ -77,17 +77,17 @@ export const BaratCard: React.FC = () => {
           variants={itemVariant}
           className="relative z-10 my-3 flex flex-col items-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-script-luxury font-normal text-[#8C6D37] leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-tight tracking-wide">
             Milhan Qaiser
           </h1>
 
-          <div className="my-0.5 flex items-center justify-center gap-2">
-            <span className="font-script-luxury text-2xl text-[#B8860B] italic">
+          <div className="my-1 flex items-center justify-center gap-2">
+            <span className="font-formal-script text-2xl sm:text-3xl text-[#B8860B] italic">
               with
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl font-script-luxury font-normal text-[#8C6D37] leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-tight tracking-wide">
             Muhammad Hussnain
           </h1>
 

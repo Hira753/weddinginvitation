@@ -59,7 +59,7 @@ export const FooterSection: React.FC = () => {
         variants={itemVariant}
         className="text-3xl font-serif-luxury font-medium text-[#2B231D] tracking-wide mb-1"
       >
-        Milhan <span className="font-script-luxury text-4xl text-[#B8860B]">&</span> Hussnain
+        Milhan <span className="font-formal-script text-4xl text-[#B8860B]">&</span> Hussnain
       </motion.h4>
 
       <motion.p
@@ -108,7 +108,7 @@ export const FooterSection: React.FC = () => {
         variants={itemVariant}
         className="text-[10px] sm:text-[11px] font-display-luxury tracking-[0.25em] text-[#8C6D37] uppercase font-semibold"
       >
-        OCTOBER 24 & 25, 2026 • FAISALABAD, PAKISTAN
+        OCTOBER 23 & 25, 2026 • FAISALABAD, PAKISTAN
       </motion.p>
     </footer>
   );

@@ -118,14 +118,14 @@ export const EnvelopeOpener: React.FC<EnvelopeOpenerProps> = ({ onOpen, isOpen }
               <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
                 Milhan Qaiser
               </h2>
-              <span className="font-script-luxury text-2xl text-[#B8860B] -my-1">&</span>
+              <span className="font-formal-script text-2xl text-[#B8860B] -my-1">&</span>
               <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
                 Muhammad Hussnain
               </h2>
 
               <div className="mt-4 flex items-center gap-1.5 text-[9px] font-display-luxury tracking-widest text-[#8C6D37] uppercase font-semibold">
                 <Sparkles className="w-3 h-3 text-[#B8860B]" />
-                <span>OCTOBER 24 & 25, 2026</span>
+                <span>OCTOBER 23 & 25, 2026</span>
                 <Sparkles className="w-3 h-3 text-[#B8860B]" />
               </div>
             </motion.div>
