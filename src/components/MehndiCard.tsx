@@ -72,12 +72,12 @@ export const MehndiCard: React.FC = () => {
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={itemVariant}
-          className="relative z-10 my-4 flex flex-col items-center"
+          className="relative z-10 my-3 flex flex-col items-center"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-[1.1] tracking-wide drop-shadow-xs">
+          <h1 className="text-4xl sm:text-5xl font-allura font-normal text-[#8C6D37] tracking-normal leading-[1.1]">
             Mehndi
           </h1>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-[1.1] tracking-wide -mt-1 sm:-mt-2">
+          <h1 className="text-4xl sm:text-5xl font-allura font-normal text-[#8C6D37] tracking-normal leading-[1.1] -mt-1 sm:-mt-2">
             Ceremony
           </h1>
         </motion.div>

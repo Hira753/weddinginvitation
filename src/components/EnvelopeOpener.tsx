@@ -115,11 +115,11 @@ export const EnvelopeOpener: React.FC<EnvelopeOpenerProps> = ({ onOpen, isOpen }
 
               <div className="w-8 h-[1px] bg-[#D4AF37] my-2" />
 
-              <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
+              <h2 className="text-2xl sm:text-3xl font-allura text-[#8C6D37] font-normal leading-tight tracking-normal whitespace-nowrap">
                 Milhan Qaiser
               </h2>
-              <span className="font-formal-script text-2xl text-[#B8860B] -my-1">&</span>
-              <h2 className="text-2xl font-serif-luxury text-[#8C6D37] font-medium tracking-wide">
+              <span className="font-allura text-xl text-[#B8860B] font-normal -my-0.5">&</span>
+              <h2 className="text-2xl sm:text-3xl font-allura text-[#8C6D37] font-normal leading-tight tracking-normal whitespace-nowrap">
                 Muhammad Hussnain
               </h2>
 

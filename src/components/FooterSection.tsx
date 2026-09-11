@@ -57,9 +57,9 @@ export const FooterSection: React.FC = () => {
         whileInView="visible"
         viewport={{ once: false, amount: 0.2 }}
         variants={itemVariant}
-        className="text-3xl font-serif-luxury font-medium text-[#2B231D] tracking-wide mb-1"
+        className="text-3xl sm:text-4xl font-allura font-normal text-[#8C6D37] tracking-wide mb-1"
       >
-        Milhan <span className="font-formal-script text-4xl text-[#B8860B]">&</span> Hussnain
+        Milhan <span className="text-2xl sm:text-3xl text-[#9A7B38] font-normal italic">&</span> Hussnain
       </motion.h4>
 
       <motion.p

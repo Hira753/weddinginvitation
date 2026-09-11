@@ -1,11 +1,30 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Allura';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Allura-Regular.ttf') format('truetype'),
+       url('https://fonts.gstatic.com/s/allura/v23/9oRPNYsQpS4zjuAPjA.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/GreatVibes.woff2') format('woff2'),
+       url('/fonts/GreatVibes-Regular.ttf') format('truetype'),
+       url('https://fonts.gstatic.com/s/greatvibes/v21/RWmMoKWR9v4ksMfaWd_JN9XFiaQ.woff2') format('woff2');
+}
+
 @layer base {
   :root {
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-display: 'Cinzel', serif;
-    --font-script: 'Great Vibes', cursive;
-    --font-formal-script: 'Pinyon Script', 'Petit Formal Script', cursive;
+    --font-script: 'Allura', cursive;
+    --font-formal-script: 'Allura', 'Pinyon Script', cursive;
     --font-formal-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
     --font-arabic: 'Amiri', 'Traditional Arabic', serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -20,16 +39,18 @@
   font-family: 'Cinzel', serif;
 }
 
-.font-script-luxury {
-  font-family: 'Great Vibes', cursive;
+.font-allura {
+  font-family: 'Allura', cursive;
 }
 
-.font-formal-script {
-  font-family: 'Pinyon Script', 'Petit Formal Script', cursive;
-}
-
+.font-script-luxury,
+.font-formal-script,
+.font-snell-script,
 .font-petit-formal {
-  font-family: 'Petit Formal Script', 'Pinyon Script', cursive;
+  font-family: 'Allura', 'Pinyon Script', cursive;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-formal-serif {

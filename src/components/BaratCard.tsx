@@ -75,23 +75,23 @@ export const BaratCard: React.FC = () => {
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={itemVariant}
-          className="relative z-10 my-3 flex flex-col items-center"
+          className="relative z-10 my-3 flex flex-col items-center max-w-full px-2"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-tight tracking-wide">
+          <h1 className="text-2xl min-[360px]:text-3xl sm:text-4xl md:text-5xl font-allura font-normal text-[#8C6D37] leading-tight tracking-normal whitespace-nowrap">
             Milhan Qaiser
           </h1>
 
-          <div className="my-1 flex items-center justify-center gap-2">
-            <span className="font-formal-script text-2xl sm:text-3xl text-[#B8860B] italic">
+          <div className="my-0.5 flex items-center justify-center gap-2">
+            <span className="font-allura text-xl sm:text-2xl text-[#B8860B] italic">
               with
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-formal-script font-normal text-[#8C6D37] leading-tight tracking-wide">
+          <h1 className="text-2xl min-[360px]:text-3xl sm:text-4xl md:text-5xl font-allura font-normal text-[#8C6D37] leading-tight tracking-normal whitespace-nowrap">
             Muhammad Hussnain
           </h1>
 
-          <p className="text-[10px] sm:text-xs font-display-luxury tracking-widest text-[#6B5A46] uppercase font-bold mt-2">
+          <p className="text-[10px] sm:text-xs font-display-luxury tracking-widest text-[#6B5A46] uppercase font-bold mt-2.5">
             S/O MR & MRS. MUHAMMAD MUNIR BHUTTA
           </p>
         </motion.div>
